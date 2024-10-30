@@ -7,10 +7,12 @@ const MONGO_URL = Deno.env.get("MONGO_URL");
 
 if (!MONGO_URL) {
   console.log("No mongo URL found");
-  Deno.exit(1);
+  //Deno.exit(1);
+}else{
+  await mongoose.connect(MONGO_URL);
 }
 
-await mongoose.connect(MONGO_URL);
+
 const app = express();
 app.use(cors());
 app.use(express.json());
