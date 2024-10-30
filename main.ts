@@ -3,16 +3,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { router } from "./router.ts";
 
-const MONGO_URL = Deno.env.get("MONGO_URL");
+const MONGO_URL = Deno.env.get("MONGO_URL")||"";
 
 if (!MONGO_URL) {
   console.log("No mongo URL found");
-  //Deno.exit(1);
-}else{
-  await mongoose.connect(MONGO_URL);
+  console.error("No mongo URL found. Check environment variables.");
 }
 
-
+await mongoose.connect(MONGO_URL);
 const app = express();
 app.use(cors());
 app.use(express.json());
