@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { UserType } from "../../types.ts";
-import { userModel } from "../../db/user.ts";
+//import { UserType } from "../../../types.ts";
+import { userModel } from "../../../db/user.ts";
 import { verify } from '@denorg/scrypt';
 
 
@@ -18,7 +18,10 @@ export const postLoginUser = async (req: Request, res: Response) => {
     }
     const isMatch = await verify(password,user.password);
     if (isMatch) {
-        res.status(200).json({ message: 'Inicio de sesión exitoso' });
+      const userWithoutPassword = user.toObject();
+      delete userWithoutPassword.password;
+      console.log(userWithoutPassword);
+      res.status(200).json({ message: 'Inicio de sesión exitoso', user: userWithoutPassword });
     } else {
     res.status(401).json({ message: 'Contraseña incorrecta' });
     }

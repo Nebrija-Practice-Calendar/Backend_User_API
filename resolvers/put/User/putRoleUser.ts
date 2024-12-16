@@ -1,16 +1,18 @@
 import { Request, Response } from 'express';
-import { userModel } from "../../db/user.ts";
+import { userModel } from "../../../db/user.ts";
 
 export const putRoleUser= async (req: Request, res: Response) => {
   try {
     const {id,role } = req.body;
     if(!id||!role) {
-        res.status(404).send('ID and Role are required');
+      res.status(404).send('ID and Role are required');
     }
     const user = await userModel.findByIdAndUpdate(
-        id,
-        role
+      id,
+      { role },
+      { new: true, runValidators: true }
     ).exec();
+    console.log(user);
     if(!user){
         res.status(404).send('User not found');
         return

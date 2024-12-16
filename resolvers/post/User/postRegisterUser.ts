@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { UserType } from "../../types.ts";
-import { userModel } from "../../db/user.ts";
-import { verify,hash } from '@denorg/scrypt';
+import { UserType } from "../../../types.ts";
+import { userModel } from "../../../db/user.ts";
+import { hash } from '@denorg/scrypt';
 
 
 export const postRegisterUser = async (req: Request, res: Response) => {
